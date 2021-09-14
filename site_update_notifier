@@ -1,0 +1,27 @@
+import time
+import hashlib
+from urllib.request import urlopen, Request
+url = Request('https://www.legit.ng/',
+headers = {'user agent': 'Mozilla 5/0'})
+response = urlopen(url).read()
+hash1 = hashlib.sha224(response).hexdigest()
+print('running')
+time.sleep(10)
+while True:
+    try:
+        response = urlopen(url).read()
+        hash1 = hashlib.sha224(response).hexdigest()
+        time.sleep(30)
+        response = urlopen(url).read()
+        hash2 = hashlib.sha224(response).hexdigest()
+        if hash1 == hash2:
+            continue
+        else:
+            print('site was updated')
+            response = urlopen(url).read()
+        hash1 = hashlib.sha224(response).hexdigest()
+        time.sleep(30)
+        continue
+    except Exception as e:
+        print('something went wrong')
+    
